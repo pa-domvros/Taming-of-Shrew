@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arguments Across Time: Shakespeare & Lilly Singh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,700&family=Great+Vibes&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #333;
+            line-height: 1.6;
+        }
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+        }
+        .great-vibes {
+            font-family: 'Great Vibes', cursive;
+            font-weight: normal;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        header {
+            text-align: center;
+            margin: 0 auto 1rem auto;
+            position: relative;
+        }
+        .main-title {
+            font-size: 4.5em;
+            font-weight: normal;
+            margin: 0;
+            color: #800020;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            margin: 8px 0;
+            color: #444;
+            line-height: 1.4;
+        }
+        .phase-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 1.75rem;
+            color: #800020;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1rem;
+        }
+        /* --- FIX: Restored border, fixed sizing with box-sizing --- */
+.video-wrapper {
+    position: relative;
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 800px;
+    border: 8px solid #800020;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-wrapper video {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+        #subtitles, #singh-subtitles {
+            margin: 1rem auto;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-height: 5em;
+        }
+        .original-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        .translation-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1em;
+            margin-bottom: 0.5rem;
+        }
+        .quiz-card {
+            background-color: #fafaf9;
+            border: 1px solid #d6d3d1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .quiz-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .answer-btn {
+            background-color: #ffffff;
+            border: 2px solid #e2e8f0;
+            color: #333;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s;
+            text-align: left;
+            width: 100%;
+        }
+        .answer-btn:hover:not([disabled]) {
+            background-color: #eff6ff;
+            border-color: #38bdf8;
+            transform: scale(1.01);
+        }
+        .btn-correct {
+            background-color: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #065f46;
+        }
+        .btn-incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #991b1b;
+        }
+        .feedback-correct {
+            border-left: 4px solid #10b981;
+        }
+        .feedback-incorrect {
+            border-left: 4px solid #ef4444;
+        }
+        .comparison-card {
+            transition: all 0.3s ease;
+        }
+        .quote-block {
+            cursor: pointer;
+            border-left: 4px solid #e2e8f0;
+            transition: all 0.2s ease-in-out;
+            user-select: none;
+        }
+        .quote-block:hover {
+            border-left-color: #0ea5e9;
+            background-color: #eff6ff;
+        }
+        .analysis-panel {
+            overflow: hidden;
+            height: 0;
+            transition: height 0.3s ease-out;
+            background-color: #eff6ff;
+            border-top: 1px solid #38bdf8;
+        }
+        .analysis-panel.open {
+            height: auto;
+            padding: 1rem;
+        }
+        .technique-tag {
+            background-color: #38bdf8;
+            color: #ffffff;
+            line-height: 1.25;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.375rem;
+            display: inline-block;
+        }
+        .icon-arrow {
+            transition: transform 0.3s ease;
+        }
+        .quote-block.open .icon-arrow {
+            transform: rotate(180deg);
+        }
+        .star-rating {
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #e5e7eb;
+            transition: color 0.2s;
+        }
+        .star-rating.filled {
+            color: #f59e0b;
+        }
+        .results-table-container {
+            display: none;
+        }
+        .lesson-plan-button {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 700px;
+            border-radius: 0.5rem;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .homework-section {
+            text-align: center;
+            background-color: #f0f9ff;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+        }
+        .homework-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #0ea5e9;
+            color: white;
+            font-weight: bold;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        .homework-button:hover {
+            background-color: #0284c7;
+        }
+        .no-print {
+            /* Styles to hide elements during printing */
+        }
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .no-print {
+                display: none;
+            }
+            .results-table-container {
+                display: block;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <button class="lesson-plan-button no-print" onclick="openModal()">Lesson Plan</button>
+    <div id="lessonPlanModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <div id="lesson-plan-content"></div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1 class="main-title great-vibes">Katharina's Monologue</h1>
+            <p class="subtitle font-serif">From William Shakespeare's play <em>The Taming of the Shrew</em> (Act 5, Scene 2)</p>
+            <p class="subtitle font-serif">Performed by Thalissa Teixeira in 2024 at Shakespeare's Globe</p>
+            <p class="subtitle font-serif">Modern English translation, Panagiotis Domvros, English and Drama Teacher</p>
+        </header>
+
+        <section id="phase-1">
+            <h2 class="phase-title">Phase 1: The Historical Argument</h2>
+            
+            <div class="video-wrapper">
+                <video id="shrew-video" controls poster="shrew_poster.jpg">
+                    <source src="Shrew.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div id="subtitles">
+                <p class="original-text"></p>
+                <p class="translation-text"></p>
+            </div>
+
+            <h3 class="phase-title">Analyze the Argument for Duty</h3>
+            <div id="shrew-quiz-container" class="space-y-4"></div>
+
+            <h3 class="phase-title">Group Task: Submit Your Initial Grade</h3>
+            <p class="mb-4 text-gray-600">As a group, give a "Persuasion Grade" (1-5 stars) to the Shakespearean monologue and write a justification for your score on the digital softboard.</p>
+            <section id="group-grade-shrew" class="card">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 no-print">
+                    </div>
+                <div class="flex justify-center mt-6 no-print">
+                    <button id="print-btn-shrew" class="w-full max-w-sm px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition-colors">
+                        Print Grades
+                    </button>
+                </div>
+                <div id="results-table-container-shrew" class="results-table-container mt-6">
+                    <h4 class="text-lg font-bold mb-4">Submitted Grades for Shakespeare's Speech</h4>
+                    <table class="w-full text-sm text-left text-gray-500 card">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Group Name</th>
+                                <th scope="col" class="px-6 py-3">Grade</th>
+                                <th scope="col" class="px-6 py-3">Justification</th>
+                                <th scope="col" class="px-6 py-3">Submitted On</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body-shrew"></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+
+        <section id="phase-2">
+            <h2 class="phase-title">Phase 2: The Modern Argument</h2>
+                <div class="video-wrapper">
+                <video id="singh-video" src="A Seat.mp4" controls poster="singh_poster.jpg"></video>
+            </div>
+            <div id="singh-subtitles">
+                <p class="translation-text"></p>
+            </div>
+
+            <h3 class="phase-title">Analyze the Argument for Equality</h3>
+            <div id="singh-quiz-container" class="space-y-4"></div>
+        </section>
+
+        <section id="phase-3">
+            <h2 class="phase-title">Phase 3: Conclusion - Compare and Argue</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-4">
+                <div class="card p-6 comparison-card">
+                    <h3 class="text-2xl font-bold font-serif mb-4 text-center border-b-2 pb-2">The Argument for Duty</h3>
+                    <div id="shrew-comparison-quotes" class="space-y-4"></div>
+                </div>
+                <div class="card p-6 comparison-card">
+                    <h3 class="text-2xl font-bold font-serif mb-4 text-center border-b-2 pb-2">The Argument for Equality</h3>
+                    <div id="singh-comparison-quotes" class="space-y-4"></div>
+                </div>
+            </div>
+
+            <h3 class="phase-title">Final Task: Submit Your Final Grade</h3>
+            <p class="mb-4 text-gray-600">Now, as a group, give a final "persuasion grade" to the Lilly Singh speech, justifying your score in comparison to the Shakespearean one on the digital softboard.</p>
+            <section id="group-grade-singh" class="card no-print">
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+                <div class="flex justify-center mt-6 no-print">
+                    <button id="print-btn-singh" class="w-full max-w-sm px-4 py-2 bg-gray-200 text-gray-800 font-semibold rounded-lg shadow-md hover:bg-gray-300 transition-colors">
+                        Print Final Grades
+                    </button>
+                </div>
+                <div id="results-table-container-singh" class="results-table-container mt-6">
+                    <h4 class="text-lg font-bold mb-4">Final Grades for Lilly Singh's Speech</h4>
+                    <table class="w-full text-sm text-left text-gray-500 card">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Group Name</th>
+                                <th scope="col" class="px-6 py-3">Grade</th>
+                                <th scope="col" class="px-6 py-3">Justification</th>
+                                <th scope="col" class="px-6 py-3">Submitted On</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table-body-singh"></tbody>
+                    </table>
+                </div>
+            </section>
+        </section>
+        
+        <section id="phase-4" class="no-print">
+            <h2 class="phase-title">Homework & Lesson Feedback</h2>
+            <div class="homework-section card mt-4">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Homework</h3>
+                <p class="text-lg text-gray-700">Students will be assigned to study the provided "Persuasive Writing" page for homework.</p>
+                <a href="https://pa-domvros.github.io/persuasion/" target="_blank" class="homework-button">
+                    Study the Persuasive Writing Page
+                </a>
+            </div>
+
+            <h3 class="phase-title">Your Lesson Feedback</h3>
+            <p class="mb-4 text-gray-600">Finally, each student will individually complete a feedback form on the lesson itself, providing a star rating and written comments on their experience.</p>
+            <section id="feedback-form-section" class="card">
+                <form id="feedback-form" action="https://formspree.io/f/myzpbonq" method="POST" class="space-y-4">
+                    <div>
+                        <label for="student-name" class="block text-sm font-medium text-gray-700">Your Name</label>
+                        <input type="text" id="student-name" name="student_name" placeholder="Enter your name" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">1. Overall, the lesson was engaging and informative.</label>
+                        <div id="star-container-1" class="flex justify-center" data-question="1">
+                            <span class="star-rating" data-value="1">★</span><span class="star-rating" data-value="2">★</span><span class="star-rating" data-value="3">★</span><span class="star-rating" data-value="4">★</span><span class="star-rating" data-value="5">★</span>
+                        </div>
+                        <input type="hidden" name="q1_rating" id="q1-rating-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">2. The instructions for the activities were clear and easy to follow.</label>
+                        <div id="star-container-2" class="flex justify-center" data-question="2">
+                            <span class="star-rating" data-value="1">★</span><span class="star-rating" data-value="2">★</span><span class="star-rating" data-value="3">★</span><span class="star-rating" data-value="4">★</span><span class="star-rating" data-value="5">★</span>
+                        </div>
+                        <input type="hidden" name="q2_rating" id="q2-rating-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">3. The topic of the lesson was relevant and interesting to me.</label>
+                        <div id="star-container-3" class="flex justify-center" data-question="3">
+                            <span class="star-rating" data-value="1">★</span><span class="star-rating" data-value="2">★</span><span class="star-rating" data-value="3">★</span><span class="star-rating" data-value="4">★</span><span class="star-rating" data-value="5">★</span>
+                        </div>
+                        <input type="hidden" name="q3_rating" id="q3-rating-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">4. I enjoyed working in my group, and everyone contributed equally.</label>
+                        <div id="star-container-4" class="flex justify-center" data-question="4">
+                            <span class="star-rating" data-value="1">★</span><span class="star-rating" data-value="2">★</span><span class="star-rating" data-value="3">★</span><span class="star-rating" data-value="4">★</span><span class="star-rating" data-value="5">★</span>
+                        </div>
+                        <input type="hidden" name="q4_rating" id="q4-rating-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">5. The digital tools (apps and softboard) helped me understand the topic better.</label>
+                        <div id="star-container-5" class="flex justify-center" data-question="5">
+                            <span class="star-rating" data-value="1">★</span><span class="star-rating" data-value="2">★</span><span class="star-rating" data-value="3">★</span><span class="star-rating" data-value="4">★</span><span class="star-rating" data-value="5">★</span>
+                        </div>
+                        <input type="hidden" name="q5_rating" id="q5-rating-input">
+                    </div>
+                    <div>
+                        <label for="comments" class="block text-sm font-medium text-gray-700">Additional Comments</label>
+                        <textarea id="comments" name="comments" rows="4" placeholder="How can we make the next lesson better?" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md"></textarea>
+                    </div>
+                    <button type="submit" class="w-full px-4 py-2 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 transition-colors">
+                        Submit Feedback
+                    </button>
+                </form>
+                <div id="thank-you-message" class="text-center hidden p-6 text-gray-800">
+                    <p class="text-2xl font-bold mb-2">Thank you, <span id="student-name-display"></span>!</p>
+                    <p class="text-lg">Your feedback has been submitted.</p>
+                </div>
+            </section>
+        </section>
+
+    </div>
+
+    <script>
+        const teacherPassword = 'teacher';
+
+        function openModal() {
+            const password = prompt("Please enter the teacher password:");
+            if (password === teacherPassword) {
+                const modal = document.getElementById('lessonPlanModal');
+                const content = document.getElementById('lesson-plan-content');
+                content.innerHTML = `
+                    <h2 class="text-2xl font-bold mb-4">Lesson Plan: The Language of Persuasion - Then and Now</h2>
+                    <p class="mb-2">This lesson plan is designed for 15-year-old Greek students at a B2 English level and has a duration of 40 minutes.</p>
+                    <p class="mb-4">The objective is for students to identify and compare persuasive techniques from two different eras and formulate a basic argument in English.</p>
+                    <h3 class="text-xl font-bold mt-4 mb-2">Phase 1: The Historical Argument (10 minutes)</h3>
+                    <p class="mb-2">This phase, acting as a "Code Breaker" and "Meaning Maker," introduces a controversial historical argument and its persuasive language. The teacher will play a 3-minute video clip from Shakespeare's *The Taming of the Shrew*. Students will work in groups, using an interactive tool embedded on the page to analyze the speaker's persuasive techniques. As a "Group Task," each group will use the "Grade Board" tool to collaboratively give a "Persuasion Grade" (1-5 stars) and write a justification for their score. The teacher will display the live "Grade Board" on a digital softboard.</p>
+                    <h3 class="text-xl font-bold mt-4 mb-2">Phase 2: The Modern Argument (10 minutes)</h3>
+                    <p class="mb-2">This phase shifts focus to a modern, narrative-based argument, functioning as a "Text User" activity. Students will first watch a 2.10-minute clip from Lilly Singh's TED Talk. They will then use an interactive web application embedded on the page that guides them through the persuasive techniques. The "Group Task" is to discuss each section, answer the embedded questions, and identify 2-3 key phrases from the modern text on a shared digital softboard.</p>
+                    <h3 class="text-xl font-bold mt-4 mb-2">Phase 3: Conclusion - Compare and Argue (15 minutes)</h3>
+                    <p class="mb-2">This final "Critical Resource" phase synthesizes all the information. The class will engage in a whole-group discussion guided by the teacher. The discussion will focus on how each speaker used different language to persuade their audience and which argument is more effective today. For the "Final Task," each group will use the "Grade Board" again to give a persuasion grade to Lilly Singh's speech, justifying their score in comparison to the Shakespearean one. The teacher can then print a PDF record of the final grades and justifications.</p>
+                    <h3 class="text-xl font-bold mt-4 mb-2">Homework & Lesson Feedback (5 minutes)</h3>
+                    <p class="mb-2">Students will be assigned to study the "Persuasive Writing" page for homework. Finally, each student will individually complete a feedback form on the lesson itself, providing a star rating and written comments on their experience.</p>
+                `;
+                modal.style.display = 'flex';
+            } else if (password !== null) {
+                alert("Incorrect password. Please try again.");
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('lessonPlanModal');
+            modal.style.display = 'none';
+        }
+
+        const subtitles = [
+            { start: 1, end: 4, original: "Thy husband is thy lord.", translation: "Your husband is your lord." },
+            { start: 5, end: 33, original: "Thy life, thy keeper, thy head, thy sovereign, one that cares for thee, and for thy maintenance commits his body to painful labour both by sea and land, to watch the night in storms, the day in cold, while thou liest warm at home, secure and safe.", translation: "Your life, your protector, your leader, your king; one who cares for you and, for your well-being, puts his body through painful work on both sea and land, staying up through stormy nights and cold days, while you lie warm, safe, and secure at home." },
+            { start: 34, end: 44, original: "And craves no other tribute at thy hands but love, fair looks and true obedience.", translation: "And he asks for no payment from you other than love, kind looks, and true obedience." },
+            { start: 45, end: 47, original: "Too little payment for so great a debt.", translation: "That’s too small a payment for such a great debt." },
+            { start: 48, end: 57, original: "Such duty as the subject owes the prince Even such a woman owes to her husband.", translation: "The same duty that a subject owes to a prince, a woman owes to her husband." },
+            { start: 58, end: 65, original: "And while she is forward, peevish, sullen, sour and not obedient to his honest will, what is she?", translation: "And when she is defiant, irritable, gloomy, bitter, and not obedient to his honorable requests, what is she?" },
+            { start: 66, end: 73, original: "What is she but a foul contending rebel and graceless traitor to her loving lord?", translation: "What is she but a vile, argumentative rebel and a dishonorable traitor to her loving lord?" },
+            { start: 74, end: 87, original: "I am ashamed that women are so simple to offer war when they should kneel for peace.", translation: "I am ashamed that women are foolish enough to start a war when they should be kneeling for peace." },
+            { start: 88, end: 99, original: "To seek for rule, supremacy and sway, when they are bound to serve, love and obey.", translation: "To seek power, supremacy, and control, when they are obligated to serve, love, and obey." },
+            { start: 100, end: 119, original: "Why are our bodies soft and weak and smooth, unapt to toil and trouble in the world, But that our soft conditions and our hearts should well agree with our external parts?", translation: "Why are our bodies soft, weak, and smooth, not suited for hard work and trouble in the world, if not so that our gentle inner nature and our hearts should match our outward appearance?" },
+            { start: 120, end: 129, original: "Come, come, you froward and unable worm.", translation: "Come on, you defiant and helpless creature." },
+            { start: 130, end: 139, original: "My mind hath been as big as one of yours, my heart as great, my reason haply more, To bandy word for word and frown for frown.", translation: "My spirit has been as proud as yours, my heart as strong, my reasoning perhaps even greater, to argue word for word and frown for frown." },
+            { start: 140, end: 160, original: "But now I see our lances are but straws, our strength as weak, our weakness past compare, That seeming to be most which we indeed least are.", translation: "But now I see that our weapons are just straws, our strength is weak, and our weakness is beyond comparison, so that we appear to be strongest when we are, in fact, the weakest." },
+            { start: 161, end: 183, original: "Then vail your stomachs, for it is no boot, and place your hands below your husband's foot: In token of which duty, if he please, my hand is ready; may it do him ease.", translation: "Then let go of your pride, for it is pointless, and place your hands beneath your husband's foot as a sign of your duty; if he wishes, my hand is ready to offer him comfort." }
+        ];
+
+        /* --- FIX: Resynchronized subtitle data for the Lilly Singh video --- */
+const singhSubtitles = [
+    { start: 2.5, end: 6.4, text: "So when I was born on September 26, 1988," },
+    { start: 6.5, end: 11.4, text: "my grandparents and great grandparents back in India didn't find out for two weeks," },
+    { start: 11.5, end: 14.4, text: "which is a shame because I mean, look how perfect I was." },
+    { start: 14.5, end: 19.4, text: "And it's not because the phone lines were down or because they weren't available." },
+    { start: 19.5, end: 22.4, text: "It's because there was a complication with my birth." },
+    { start: 22.5, end: 27.4, text: "And that complication was being assigned female at birth." },
+    { start: 27.5, end: 33.4, text: "You see, because my mom had been told that if she gave birth to a daughter, it wasn't worth phoning home about." },
+    { start: 33.5, end: 40.4, text: "After all, she'd already given birth to my older sister, and this time everyone had high hopes that she would do right and have a son." },
+    { start: 40.5, end: 42.4, text: "But she didn't." },
+    { start: 42.5, end: 44.4, text: "She had me." },
+    { start: 44.5, end: 49.4, text: "And so there were no congratulations or Indian sweets sent our way." },
+    { start: 49.5, end: 56.4, text: "Just the reality that from the moment I came into this world, I was already a disappointment to so many people." },
+    { start: 56.5, end: 64.4, text: "It's as if they had a time machine and already knew the trajectory of my entire career and life and decided that I had less to offer." },
+    { start: 64.5, end: 66.4, text: "And it sucked." },
+    { start: 66.5, end: 68.4, text: "So why am I telling you this heavy story?" },
+    { start: 68.5, end: 69.4, text: "I'm supposed to be a funny person." },
+    { start: 69.5, end: 73.4, text: "I have the nerve to come out here and hit you right in the feels." },
+    { start: 73.5, end: 74.4, text: "How dare I?" },
+    { start: 74.5, end: 84.4, text: "I'm telling you this because although this is my lived experience, it's also the reality that millions of girls face every day across every culture and in every country." },
+    { start: 84.5, end: 94.4, text: "And I'm telling you this because being born into this reality set me on a lifetime mission of trying to prove myself and just feel like I was enough." },
+    { start: 94.5, end: 97.4, text: "What did I want to be when I grow up?" },
+    { start: 97.5, end: 100.4, text: "I wanted to be treated equally." },
+    { start: 100.5, end: 107.4, text: "And I'm not alone in this mission. In fact, us girls, what we desperately want is a seat at the table." },
+    { start: 107.5, end: 113.4, text: "It's what every motivational poster, Tumblr post, Instagram account you follow, business card tells us:" },
+    { start: 113.5, end: 115.4, text: "Success is a seat at the table." },
+    { start: 115.5, end: 120.4, text: "And if they want to be extra spicy, they say, 'If there is no seat, drag your own seat.'" },
+    { start: 120.5, end: 122.4, text: "I'm sure you've heard this, right?" },
+    { start: 122.5, end: 129.4, text: "And so my marching orders were clear. Get a seat at this coveted table by any means necessary." },
+    { start: 129.5, end: 132.4, text: "And that's been the driving force behind my entire career." }
+];
+
+        const shrewQuizData = [
+            { quote: "Thy husband is thy lord, thy life, thy keeper, thy head, thy sovereign...", translation: "Your husband is your lord, your life, your keeper, your head, your ruler...", question: "What persuasive technique is used here?", options: [{ text: "Appeal to Emotion", isCorrect: false, rationale: "The speaker is not appealing to a feeling here, but to a role or status." }, { text: "Appeal to Authority", isCorrect: true, rationale: "The speaker uses titles like 'lord' and 'sovereign' to establish the husband's high status and authority over the wife." }, { text: "Use of Analogy", isCorrect: false, rationale: "An analogy would compare the husband-wife relationship to something else, which is done later in the speech, but not here." }, { text: "Appeal to Logic", isCorrect: false, rationale: "This isn't a logical argument but a declaration of a hierarchical relationship." }] },
+            { quote: "Such duty as the subject owes the prince, Even such a woman owes to her husband.", translation: "The kind of duty a subject owes a prince, that is the same duty a woman owes to her husband.", question: "Which technique is most evident in this quote?", options: [{ text: "Use of Analogy", isCorrect: true, rationale: "The speaker draws a direct comparison between the subject-prince relationship and the wife-husband relationship to make their point clear." }, { text: "Appeal to Emotion", isCorrect: false, rationale: "The focus is on comparing a legal/social duty, not on evoking an emotional response." }, { text: "Use of Metaphor", isCorrect: false, rationale: "This is a direct comparison, making it an analogy rather than a metaphor." }, { text: "Use of Personal Anecdote", isCorrect: false, rationale: "The speaker is referencing a general social relationship, not a personal story." }] },
+            { quote: "What is she but a foul contending rebel and graceless traitor to her loving lord?", translation: "What is she but a treacherous rebel and disloyal traitor to her loving lord?", question: "This quote uses which persuasive technique?", options: [{ text: "Use of Understatement", isCorrect: false, rationale: "This is not an understatement; the language is highly exaggerated and dramatic." }, { text: "Appeal to Duty", isCorrect: false, rationale: "While related to duty, the primary technique here is the use of a strong negative comparison." }, { text: "Use of Insulting Language", isCorrect: true, rationale: "The speaker uses highly negative and emotionally charged words ('foul contending rebel,' 'traitor') to shame the woman and strengthen the argument." }, { text: "Appeal to Logic", isCorrect: false, rationale: "This is an emotional appeal, not a logical one." }] },
+            { quote: "Why are our bodies soft and weak and smooth... But that our soft conditions and our hearts should well agree with our external parts?", translation: "Why are our bodies soft and weak and smooth... Except so that our gentle nature and our hearts should match our outward appearance?", question: "What is the primary persuasive strategy here?", options: [{ text: "Appeal to Authority", isCorrect: false, rationale: "The speaker is not referencing an external authority, but a supposed natural truth." }, { text: "Use of Personal Anecdote", isCorrect: false, rationale: "The speaker is talking about women in general, not a personal story." }, { text: "Appeal to Logic", isCorrect: true, rationale: "The speaker attempts to use a logical argument based on 'evidence' from nature and women's physical bodies to justify their social role." }, { text: "Appeal to Emotion", isCorrect: false, rationale: "While it can evoke an emotional response, the primary goal of the sentence is to construct a logical connection between body and social role." }] },
+            { quote: "And craves no other tribute at thy hands but love, fair looks and true obedience, Too little payment for so great a debt.", translation: "And asks for no other payment from you except for love, kind looks, and true obedience, which is too little payment for such a great debt.", question: "What is the primary persuasive strategy here?", options: [{ text: "Appeal to Guilt and Obligation", isCorrect: true, rationale: "The speaker frames the wife's actions as a very small repayment for a large debt, creating a sense of guilt and obligation to comply." }, { text: "Use of Flattery", isCorrect: false, rationale: "While 'fair looks' could be seen as flattery, the main point is the debt and the small payment." }, { text: "Appeal to Fear", isCorrect: false, rationale: "The speaker is not trying to instill fear in this part of the speech." }, { text: "Use of Analogy", isCorrect: false, rationale: "This quote is about payment and debt, not a comparison to a different situation." }] },
+            { quote: "I am ashamed that women are so simple to offer war when they should kneel for peace.", translation: "I am ashamed that women are so foolish to start a fight when they should be seeking peace.", question: "Which persuasive technique is used in this quote?", options: [{ text: "Use of an Anecdote", isCorrect: false, rationale: "This is a general statement about women, not a personal story or anecdote." }, { text: "Appeal to Tradition", isCorrect: false, rationale: "The speaker is expressing a personal feeling rather than referencing a tradition." }, { text: "Appeal to Shame", isCorrect: true, rationale: "The speaker uses their personal shame to pressure other women into conforming to the expected role." }, { text: "Use of Logic", isCorrect: false, rationale: "This is an emotional appeal, not a logical argument." }] },
+            { quote: "To seek for rule, supremacy and sway, when they are bound to serve, love and obey.", translation: "To look for power and authority when they are meant to serve, love and obey.", question: "The speaker is using which persuasive technique?", options: [{ text: "Appeal to Tradition and Social Norms", isCorrect: true, rationale: "The speaker argues that a woman's role is a fixed one and that they are 'bound' to it by social custom." }, { text: "Appeal to Fear", isCorrect: false, rationale: "The speaker is not trying to create fear in this part of the speech." }, { text: "Use of Hyperbole", isCorrect: false, rationale: "The statement is a declaration of what the speaker believes is the traditional social role, not an exaggeration." }, { text: "Use of Flattery", isCorrect: false, rationale: "The speaker is not flattering women here, but reminding them of their place." }] },
+            { quote: "But now I see our lances are but straws, our strength as weak, our weakness past compare...", translation: "But now I see that our weapons are just straws, our strength is weak, and our weakness is beyond comparison...", question: "Which technique is used to weaken the opponent's position?", options: [{ text: "Appeal to Fear", isCorrect: false, rationale: "The speaker is not creating a sense of fear, but a sense of futility and powerlessness." }, { text: "Use of Metaphor", isCorrect: true, rationale: "The speaker uses the metaphor of 'lances are but straws' to illustrate the complete powerlessness of women against men." }, { text: "Appeal to Tradition", isCorrect: false, rationale: "This quote is a direct comparison, not an appeal to tradition." }, { text: "Use of Hyperbole", isCorrect: false, rationale: "While it is exaggerated, the primary device is the metaphorical comparison of strength to straws." }] },
+            { quote: "Come, come, you froward and unable worm.", translation: "Come, come, you stubborn and useless creature.", question: "This quote is a direct example of which technique?", options: [{ text: "Appeal to a Shared Experience", isCorrect: false, rationale: "The speaker is not trying to find common ground but is instead directly attacking." }, { text: "Ad Hominem (Personal Attack)", isCorrect: true, rationale: "The speaker uses a direct, personal insult to attack the listener's character rather than engaging with their argument." }, { text: "Use of a Simile", isCorrect: false, rationale: "A simile uses 'like' or 'as' for comparison, which this quote does not." }, { text: "Use of Pathos", isCorrect: false, rationale: "While it is emotional, the primary technique is the personal insult itself." }] },
+            { quote: "And place your hands below your husband's foot.", translation: "And place your hands beneath your husband's foot.", question: "What is the purpose of this final instruction?", options: [{ text: "To show a sign of disrespect.", isCorrect: false, rationale: "The action is intended to be a sign of respect and obedience." }, { text: "To use symbolic action.", isCorrect: true, rationale: "The speaker asks for a specific physical action that symbolizes complete submission and obedience to the husband." }, { text: "To appeal to logic.", isCorrect: false, rationale: "This is not a logical point but a command for a symbolic gesture." }, { text: "To use hyperbole.", isCorrect: false, rationale: "The command is literal within the context of the speech's message, not an exaggeration." }] }
+        ];
+
+        const singhQuizData = [
+            { quote: "my grandparents and great grandparents back in India didn't find out for two weeks, which is a shame because I mean, look how perfect I was.", question: "What is the primary function of this opening statement?", options: [{ text: "To make a joke about her appearance.", isCorrect: false, rationale: "While humorous, the main purpose is to introduce the central, serious issue of the talk." }, { text: "To establish a historical fact.", isCorrect: false, rationale: "It is based on a real event, but it serves a larger narrative purpose than simply stating a fact." }, { text: "To create an emotional connection with a personal anecdote.", isCorrect: true, rationale: "The speaker uses a personal story from her past to make an emotional connection with the audience and introduce the topic of gender bias." }, { text: "To appeal to a sense of authority.", isCorrect: false, rationale: "The speaker is sharing a personal story, not establishing an authoritative position." }] },
+            { quote: "Just the reality that from the moment I came into this world, I was already a disappointment to so many people.", question: "This quote directly reveals the speaker's main 'problem.' What is it?", options: [{ text: "A physical complication at birth.", isCorrect: false, rationale: "The speaker explicitly states the complication was not physical, but social." }, { text: "A feeling of disappointment based on gender bias.", isCorrect: true, rationale: "This quote highlights the core issue of the speech: the gender bias she experienced from birth." }, { text: "A need to find a career.", isCorrect: false, rationale: "The career is a result of the problem, not the problem itself." }, { text: "A disagreement with her family.", isCorrect: false, rationale: "The disappointment came from a wider cultural mindset, not a simple family argument." }] },
+            { quote: "What did I want to be when I grow up? I wanted to be treated equally.", question: "What persuasive technique is used here?", options: [{ text: "Use of Rhetorical Question", isCorrect: true, rationale: "The speaker asks a question and immediately answers it, which draws the audience in and makes them consider her viewpoint as their own." }, { text: "Appeal to Authority", isCorrect: false, rationale: "The speaker is stating a personal desire, not appealing to an external authority." }, { text: "Use of Metaphor", isCorrect: false, rationale: "This is a direct statement of her core belief, not a comparison." }, { text: "Appeal to Fear", isCorrect: false, rationale: "The speaker is not trying to create a sense of fear in the audience." }] },
+            { quote: "I'm telling you this because although this is my lived experience, it's also the reality that millions of girls face every day...", question: "What is the purpose of this statement?", options: [{ text: "To apologize for telling a serious story.", isCorrect: false, rationale: "The speaker is not apologizing, but justifying why the story is important for the audience to hear." }, { text: "To prove her story is true.", isCorrect: false, rationale: "She is not focused on proving the truth of her story, but on its universal relevance." }, { text: "To make a personal story into a universal argument.", isCorrect: true, rationale: "The speaker's purpose is to transition from her personal experience to a broader, global issue, making her argument more powerful and relatable." }, { text: "To get the audience to feel sorry for her.", isCorrect: false, rationale: "The speaker is trying to create a sense of shared experience, not pity." }] },
+            { quote: "What we desperately want is a seat at the table. It's what every motivational poster... business card tells us: Success is a seat at the table.", question: "This section uses which rhetorical technique?", options: [{ text: "Appeal to Logic", isCorrect: false, rationale: "This statement is not a logical argument but an observation of a cultural norm." }, { text: "Use of a Metaphor", isCorrect: true, rationale: "The speaker uses the 'seat at the table' as a metaphor for power, success, and inclusion, which is a key part of her argument." }, { text: "Ad Hominem", isCorrect: false, rationale: "The speaker is not attacking a person or group, but an idea." }, { text: "Appeal to Tradition", isCorrect: false, rationale: "The speaker is describing a modern-day cultural trend, not a tradition." }] },
+            { quote: "And if they want to be extra spicy, they say, 'If there is no seat, drag your own seat.'", question: "What is the function of the word 'spicy' in this context?", options: [{ text: "To compliment the advice as good.", isCorrect: false, rationale: "The tone suggests the advice is more dramatic or assertive, not necessarily better." }, { text: "To create a relatable, humorous tone.", isCorrect: true, rationale: "The use of the word 'spicy' is informal and humorous, which makes her point more engaging and relatable to a younger, modern audience." }, { text: "To signal that the quote is very serious.", isCorrect: false, rationale: "The word is used informally and lightens the tone." }, { text: "To describe the food in India.", isCorrect: false, rationale: "This is a play on words, not a literal reference to food." }] },
+            { quote: "And so my marching orders were clear. Get a seat at this coveted table by any means necessary.", question: "What is the 'marching order' she is referring to?", options: [{ text: "Her parents' instructions to her.", isCorrect: false, rationale: "The 'marching orders' come from societal messaging, not from her parents." }, { text: "Her plan to become a comedian.", isCorrect: false, rationale: "Her career is the vehicle, but the 'marching order' is a deeper goal." }, { text: "The cultural expectation to be successful.", isCorrect: true, rationale: "This quote refers to the clear societal mission she received from culture to achieve success as defined by the 'seat at the table' metaphor." }, { text: "A command from a boss.", isCorrect: false, rationale: "She is a YouTuber and comedian, and the 'marching orders' are a figure of speech." }] }
+        ];
+        
+        const shrewComparisonData = [
+            { quote: "Thy husband is thy lord, thy life, thy keeper, thy head, thy sovereign...", translation: "Your husband is your lord, your life, your keeper, your head, your ruler...", technique: "Appeal to Authority & Hierarchy", explanation: "This establishes the husband's position as a ruler, using words like 'lord' and 'sovereign' to create a sense of absolute authority and a hierarchical power structure." },
+            { quote: "Such duty as the subject owes the prince, even such a woman owes to her husband.", translation: "The kind of duty a subject owes a prince, that is the same duty a woman owes to her husband.", technique: "Use of Analogy", explanation: "The speaker draws a direct comparison between the subject-prince relationship and the wife-husband relationship to make their point clear and to formalize a woman's duty." },
+            { quote: "What is she but a foul contending rebel and graceless traitor to her loving lord?", translation: "What is she but a treacherous rebel and disloyal traitor to her loving lord?", technique: "Use of Insulting Language & Metaphor", explanation: "The speaker uses highly negative and emotionally charged words ('rebel,' 'traitor') to shame the woman and strengthen the argument by painting her as an enemy to her husband." },
+            { quote: "Why are our bodies soft and weak and smooth... But that our soft conditions and our hearts should well agree with our external parts?", translation: "Why are our bodies soft and weak and smooth... Except so that our gentle nature and our hearts should match our outward appearance?", technique: "Appeal to 'Natural Order'", explanation: "The speaker attempts to use a logical argument based on 'evidence' from nature and women's physical bodies to justify their social role and submissiveness." },
+            { quote: "I am ashamed that women are so simple to offer war when they should kneel for peace.", translation: "I am ashamed that women are so foolish to start a fight when they should be seeking peace.", technique: "Appeal to Shame and Simplicity", explanation: "By expressing personal shame, the speaker attempts to pressure other women into conforming to the expected role and implies that any resistance is a foolish choice." },
+            { quote: "But now I see our lances are but straws, our strength as weak, our weakness past compare...", translation: "But now I see our weapons are just straws, our strength as weak, our weakness beyond comparison...", technique: "Use of Metaphor to Weaken the Opposition", explanation: "The speaker uses the metaphor of 'lances are but straws' to illustrate the complete powerlessness and futility of women's strength against men's." }
+        ];
+
+        const singhComparisonData = [
+            { quote: "I was already a disappointment to so many people.", technique: "Personal Anecdote", explanation: "Lilly Singh shares a personal and emotional story to connect with the audience and establish her credibility on the topic. It's a key part of her 'lived experience' argument." },
+            { quote: "I wanted to be treated equally.", technique: "Statement of Core Beliefs", explanation: "This simple, direct statement summarizes her personal mission and provides a clear, relatable goal for the audience to understand and support." },
+            { quote: "Success is a seat at the table. And if they want to be extra spicy, they say, 'If there is no seat, drag your own seat.'", technique: "Use of Metaphor & Humor", explanation: "She uses the familiar 'seat at the table' as a metaphor for power, success, and inclusion, which is a key part of her argument." },
+            { quote: "This is my lived experience, it's also the reality that millions of girls face every day across every culture and in every country.", technique: "Broadening the Argument", explanation: "She moves her personal story from a private experience to a universal issue, making her argument more powerful and relatable to a global audience." }
+        ];
+
+        const groupIds = ['A', 'B', 'C', 'D', 'E', 'F'];
+        const groupRatings = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
+        const resultsShrew = [];
+        const resultsSingh = [];
+
+        function renderShrewQuiz() {
+            const container = document.getElementById('shrew-quiz-container');
+            shrewQuizData.forEach((item, index) => {
+                const quizItem = createQuizItem(item, index, 'shrew');
+                container.appendChild(quizItem);
+            });
+        }
+        
+        function renderSinghQuiz() {
+            const container = document.getElementById('singh-quiz-container');
+            singhQuizData.forEach((item, index) => {
+                const quizItem = createQuizItem(item, index, 'singh');
+                container.appendChild(quizItem);
+            });
+        }
+        
+        function createQuizItem(item, index, type) {
+            const quizItem = document.createElement('div');
+            quizItem.className = 'quiz-card rounded-lg p-6';
+            quizItem.id = `quiz-item-${type}-${index}`;
+
+            if (item.translation) {
+                const originalQuote = document.createElement('blockquote');
+                originalQuote.className = 'font-serif text-base italic mb-2 text-stone-600';
+                originalQuote.textContent = `Original: "${item.quote}"`;
+                quizItem.appendChild(originalQuote);
+
+                const translationQuote = document.createElement('blockquote');
+                translationQuote.className = 'font-serif text-sm mb-4 text-stone-500';
+                translationQuote.textContent = `Translation: "${item.translation}"`;
+                quizItem.appendChild(translationQuote);
+            } else {
+                const quoteBlock = document.createElement('blockquote');
+                quoteBlock.className = 'italic mb-4 text-gray-600';
+                quoteBlock.textContent = `"${item.quote}"`;
+                quizItem.appendChild(quoteBlock);
+            }
+            
+            const questionText = document.createElement('p');
+            questionText.className = 'font-semibold text-gray-900 mb-4';
+            questionText.textContent = item.question;
+            quizItem.appendChild(questionText);
+
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3';
+            item.options.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'answer-btn';
+                button.textContent = option.text;
+                button.onclick = () => handleAnswer(type, index, button, option, item.options);
+                optionsContainer.appendChild(button);
+            });
+            quizItem.appendChild(optionsContainer);
+
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.id = `feedback-${type}-${index}`;
+            feedbackDiv.className = 'mt-4 p-4 rounded-lg hidden';
+            quizItem.appendChild(feedbackDiv);
+
+            return quizItem;
+        }
+
+        function handleAnswer(type, quizIndex, selectedButton, selectedOption, allOptions) {
+            const quizItem = document.getElementById(`quiz-item-${type}-${quizIndex}`);
+            const buttons = quizItem.querySelectorAll('.answer-btn');
+            const feedbackDiv = document.getElementById(`feedback-${type}-${quizIndex}`);
+
+            buttons.forEach(button => {
+                button.disabled = true;
+                const optionData = allOptions.find(o => o.text === button.textContent);
+                if (optionData.isCorrect) {
+                    button.classList.add('btn-correct');
+                }
+            });
+            
+            if (selectedOption.isCorrect) {
+                selectedButton.classList.add('btn-correct');
+                feedbackDiv.textContent = selectedOption.rationale;
+                feedbackDiv.className = 'mt-4 p-4 rounded-lg btn-correct block';
+            } else {
+                selectedButton.classList.add('btn-incorrect');
+                feedbackDiv.textContent = selectedOption.rationale;
+                feedbackDiv.className = 'mt-4 p-4 rounded-lg btn-incorrect block';
+            }
+        }
+        
+        function renderComparisonQuotes(containerId, data, isShrew = false) {
+            const container = document.getElementById(containerId);
+            data.forEach(item => {
+                const quoteBlock = document.createElement('div');
+                quoteBlock.className = 'quote-block rounded-lg p-4 transition-all duration-300';
+                let innerHTML = '';
+                
+                if (isShrew) {
+                    innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="font-serif text-base font-bold text-gray-800 leading-tight">Original:</p>
+                                <p class="font-serif text-lg italic text-gray-600 mb-1 leading-tight flex-1">"${item.quote}"</p>
+                                <p class="text-sm italic text-gray-500 leading-tight flex-1">Translation: "${item.translation}"</p>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 icon-arrow ml-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    `;
+                } else {
+                    innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <p class="italic text-gray-600 leading-tight flex-1">"${item.quote}"</p>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 icon-arrow ml-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    `;
+                }
+                
+                innerHTML += `
+                    <div class="analysis-panel">
+                        <div class="pt-2">
+                            <span class="technique-tag text-xs font-bold px-2 py-1 rounded-md uppercase">${item.technique}</span>
+                            <p class="mt-2 text-sm text-gray-700">${item.explanation}</p>
+                        </div>
+                    </div>
+                `;
+                quoteBlock.innerHTML = innerHTML;
+
+                const analysisPanel = quoteBlock.querySelector('.analysis-panel');
+                quoteBlock.addEventListener('click', () => {
+                    analysisPanel.classList.toggle('open');
+                    quoteBlock.classList.toggle('open');
+                });
+                container.appendChild(quoteBlock);
+            });
+        }
+        
+        function setupGradeBoard(targetId, submitButtonText, targetResults) {
+            const target = document.querySelector(targetId);
+            const submitHandler = (e) => {
+                const group = e.target.dataset.group;
+                const justificationTextarea = document.getElementById(`justification-${group}-${targetId.replace('#group-grade-', '')}`);
+                
+                const justification = justificationTextarea.value.trim();
+                const currentRating = groupRatings[group];
+
+                if (currentRating === 0 || !justification) {
+                    alert(`Please select a grade and provide a justification for Group ${group}.`);
+                    return;
+                }
+
+                const newResult = {
+                    groupName: `Group ${group}`,
+                    grade: currentRating,
+                    justification,
+                    timestamp: new Date().toLocaleString()
+                };
+                targetResults.push(newResult);
+                
+                renderResults(targetId, targetResults);
+                clearForm(group, targetId);
+            };
+
+            groupIds.forEach(group => {
+                const formHtml = `
+                    <section id="group-form-${group}-${targetId.replace('#group-grade-', '')}" class="bg-white rounded-xl p-6 shadow-lg">
+                        <h4 class="text-xl font-bold text-gray-800 mb-4 text-center">Group ${group}</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2 text-center">Grade (1-5)</label>
+                                <div id="star-container-${group}-${targetId.replace('#group-grade-', '')}" class="flex justify-center">
+                                    <span class="star-rating" data-value="1">★</span>
+                                    <span class="star-rating" data-value="2">★</span>
+                                    <span class="star-rating" data-value="3">★</span>
+                                    <span class="star-rating" data-value="4">★</span>
+                                    <span class="star-rating" data-value="5">★</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="justification-${group}-${targetId.replace('#group-grade-', '')}" class="block text-sm font-medium text-gray-700">Justification</label>
+                                <textarea id="justification-${group}-${targetId.replace('#group-grade-', '')}" rows="3" placeholder="Explain your grade" class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md"></textarea>
+                            </div>
+                        </div>
+                        <button data-group="${group}" class="submit-btn mt-6 w-full px-4 py-2 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 transition-colors">${submitButtonText}</button>
+                    </section>
+                `;
+                target.querySelector('div.grid').insertAdjacentHTML('beforeend', formHtml);
+            });
+            
+            document.querySelectorAll(`${targetId} .submit-btn`).forEach(button => {
+                button.addEventListener('click', submitHandler);
+            });
+
+            groupIds.forEach(group => {
+                const starContainer = document.getElementById(`star-container-${group}-${targetId.replace('#group-grade-', '')}`);
+                const stars = starContainer.querySelectorAll('.star-rating');
+                stars.forEach(star => {
+                    star.addEventListener('click', (e) => {
+                        const value = parseInt(e.target.dataset.value);
+                        groupRatings[group] = value;
+                        stars.forEach(s => {
+                            if (parseInt(s.dataset.value) <= value) {
+                                s.classList.add('filled');
+                            } else {
+                                s.classList.remove('filled');
+                            }
+                        });
+                    });
+                });
+            });
+        }
+        
+        function renderResults(targetId, results) {
+            const tableBodyId = `results-table-body-${targetId.replace('#group-grade-', '')}`;
+            const tableContainerId = `results-table-container-${targetId.replace('#group-grade-', '')}`;
+            const tableBody = document.getElementById(tableBodyId);
+            const tableContainer = document.getElementById(tableContainerId);
+
+            if (results.length > 0) {
+                tableContainer.style.display = 'block';
+                tableBody.innerHTML = '';
+                results.forEach(result => {
+                    const row = document.createElement('tr');
+                    row.className = 'bg-white border-b';
+                    row.innerHTML = `
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${result.groupName}</td>
+                        <td class="px-6 py-4 text-gray-900">${result.grade} / 5</td>
+                        <td class="px-6 py-4">${result.justification}</td>
+                        <td class="px-6 py-4 text-gray-500">${result.timestamp}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } else {
+                tableContainer.style.display = 'none';
+            }
+        }
+        
+        function clearForm(group, targetId) {
+            const justificationTextarea = document.getElementById(`justification-${group}-${targetId.replace('#group-grade-', '')}`);
+            const stars = document.getElementById(`star-container-${group}-${targetId.replace('#group-grade-', '')}`).querySelectorAll('.star-rating');
+            
+            justificationTextarea.value = '';
+            groupRatings[group] = 0;
+            stars.forEach(s => s.classList.remove('filled'));
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderShrewQuiz();
+            renderSinghQuiz();
+            setupGradeBoard('#group-grade-shrew', 'Submit Grade', resultsShrew);
+            setupGradeBoard('#group-grade-singh', 'Submit Final Grade', resultsSingh);
+            renderComparisonQuotes('shrew-comparison-quotes', shrewComparisonData, true);
+            renderComparisonQuotes('singh-comparison-quotes', singhComparisonData);
+            
+            const printBtnShrew = document.getElementById('print-btn-shrew');
+            if (printBtnShrew) {
+                printBtnShrew.addEventListener('click', () => {
+                    window.print();
+                });
+            }
+            const printBtnSingh = document.getElementById('print-btn-singh');
+            if (printBtnSingh) {
+                printBtnSingh.addEventListener('click', () => {
+                    window.print();
+                });
+            }
+            
+            const video = document.getElementById('shrew-video');
+            const originalTextElement = document.querySelector('.original-text');
+            const translationTextElement = document.querySelector('.translation-text');
+            let lastSubtitle = null;
+
+            if (video) {
+                video.addEventListener('timeupdate', () => {
+                    const currentTime = video.currentTime;
+                    let currentSubtitle = null;
+
+                    for (const subtitle of subtitles) {
+                        if (currentTime >= subtitle.start && currentTime <= subtitle.end) {
+                            currentSubtitle = subtitle;
+                            break;
+                        }
+                    }
+
+                    if (currentSubtitle !== lastSubtitle) {
+                        if (currentSubtitle) {
+                            originalTextElement.innerHTML = currentSubtitle.original;
+                            translationTextElement.innerHTML = currentSubtitle.translation;
+                        } else {
+                            originalTextElement.innerHTML = "";
+                            translationTextElement.innerHTML = "";
+                        }
+                        lastSubtitle = currentSubtitle;
+                    }
+                });
+            }
+
+            const singhVideo = document.getElementById('singh-video');
+            const singhSubtitleElement = document.querySelector('#singh-subtitles .translation-text');
+            let lastSinghSubtitle = null;
+
+            if (singhVideo) {
+                singhVideo.addEventListener('timeupdate', () => {
+                    const currentTime = singhVideo.currentTime;
+                    let currentSubtitle = null;
+
+                    for (const subtitle of singhSubtitles) {
+                        if (currentTime >= subtitle.start && currentTime <= subtitle.end) {
+                            currentSubtitle = subtitle;
+                            break;
+                        }
+                    }
+
+                    if (currentSubtitle !== lastSinghSubtitle) {
+                        if (currentSubtitle) {
+                            singhSubtitleElement.innerHTML = currentSubtitle.text;
+                        } else {
+                            singhSubtitleElement.innerHTML = "";
+                        }
+                        lastSinghSubtitle = currentSubtitle;
+                    }
+                });
+            }
+
+            const feedbackForm = document.getElementById('feedback-form');
+            const thankYouMessage = document.getElementById('thank-you-message');
+            const studentNameDisplay = document.getElementById('student-name-display');
+            
+            feedbackForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                
+                const studentNameInput = document.getElementById('student-name');
+                const studentName = studentNameInput.value.trim();
+                
+                if (!studentName) {
+                    alert('Please enter your name.');
+                    return;
+                }
+
+                const ratings = {};
+                document.querySelectorAll('#feedback-form [id^="star-container-"]').forEach(container => {
+                    const questionNumber = container.dataset.question;
+                    const filledStars = container.querySelectorAll('.star-rating.filled').length;
+                    ratings[questionNumber] = filledStars;
+                });
+                
+                const allQuestionsRated = Object.values(ratings).every(rating => rating > 0);
+                if (!allQuestionsRated) {
+                    alert('Please answer all the rating questions before submitting.');
+                    return;
+                }
+
+                document.getElementById('q1-rating-input').value = ratings['1'];
+                document.getElementById('q2-rating-input').value = ratings['2'];
+                document.getElementById('q3-rating-input').value = ratings['3'];
+                document.getElementById('q4-rating-input').value = ratings['4'];
+                document.getElementById('q5-rating-input').value = ratings['5'];
+
+                const form = event.target;
+                const formData = new FormData(form);
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        studentNameDisplay.textContent = studentName;
+                        feedbackForm.classList.add('hidden');
+                        thankYouMessage.classList.remove('hidden');
+                        form.reset();
+                    } else {
+                        alert('Something went wrong. Please try again.');
+                    }
+                } catch (error) {
+                    alert('Network error. Please check your connection and try again.');
+                }
+            });
+
+            document.querySelectorAll('#feedback-form [id^="star-container-"]').forEach(container => {
+                const stars = container.querySelectorAll('.star-rating');
+                stars.forEach(star => {
+                    star.addEventListener('click', (e) => {
+                        const value = parseInt(e.target.dataset.value);
+                        stars.forEach(s => {
+                            if (parseInt(s.dataset.value) <= value) {
+                                s.classList.add('filled');
+                            } else {
+                                s.classList.remove('filled');
+                            }
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
